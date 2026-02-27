@@ -1,0 +1,25 @@
+// Fetch dynamic products from backend with images
+fetch("http://127.0.0.1:8000/api/products/")
+    .then(response => response.json())
+    .then(products => {
+        const container = document.getElementById("products");
+        container.innerHTML = "";
+
+        if (products.length === 0) {
+            container.innerHTML = "<p>No products available yet.</p>";
+            return;
+        }
+
+        products.forEach(product => {
+            const item = document.createElement("div");
+            item.className = "product-card";
+            item.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="product-img">
+                <h3>${product.name}</h3>
+                <p>Price: $${product.price}</p>
+                <p>${product.description}</p>
+            `;
+            container.appendChild(item);
+        });
+    })
+    .catch(error => console.error("Error fetching products:", error));

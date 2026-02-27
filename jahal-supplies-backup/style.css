@@ -1,0 +1,93 @@
+:root {
+    --primary-blue: #1F4E9E;
+    --medical-red: #D62828;
+    --clean-white: #FFFFFF;
+    --light-grey: #F4F6F9;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--light-grey);
+}
+
+/* Header */
+header {
+    background: var(--clean-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.logo-img {
+    height: 65px;
+}
+
+/* Navigation */
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: var(--primary-blue);
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--medical-red);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(to right, #1F4E9E, #163E7A);
+    color: white;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 20px;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--medical-red);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: #a61b1b;
+}
+
+/* Section Titles */
+section h2 {
+    color: var(--primary-blue);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Footer */
+.site-footer {
+    background: var(--primary-blue);
+    color: white;
+    padding: 40px 20px;
+}
+
+.footer-column h4 {
+    color: var(--medical-red);
+}
+.product-card img {
+    display: block;
+}

@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JAHAL SUPPLIES LIMITED</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo img {
+            height: 150px;   /* BIG LOGO */
+            width: auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+            color: #0b5ed7;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #28a745;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background: linear-gradient(rgba(11,94,215,0.9), rgba(40,167,69,0.9)),
+                        url("{% static 'images/theme1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+        }
+
+        /* ================= PRODUCTS ================= */
+
+        .products-section {
+            padding: 60px 40px;
+        }
+
+        .products-section h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #0b5ed7;
+        }
+
+        .category-block {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            color: #28a745;
+            margin-bottom: 20px;
+            border-left: 6px solid #0b5ed7;
+            padding-left: 15px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .product-card h3 {
+            color: #0b5ed7;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #28a745;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #0b5ed7;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:768px){
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 10px;
+            }
+
+            .logo img {
+                height: 120px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="JAHAL SUPPLIES LIMITED">
+    </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="#products">Products</a>
+        <a href="/admin/">Admin</a>
+    </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+    <h1>Your Trusted Medical Equipment Supplier</h1>
+    <p>ICU • Emergency • Diagnostic • Radiography Equipment</p>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+
+<section id="products" class="products-section">
+    <h2>Our Products</h2>
+    <div id="product-container">
+        <p style="text-align:center;">Loading products...</p>
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+    © 2026 JAHAL SUPPLIES LIMITED | Kampala, Uganda
+</footer>
+
+<!-- ================= DJANGO API CONNECTION ================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    Promise.all([
+        fetch('/api/categories/').then(res => res.json()),
+        fetch('/api/products/').then(res => res.json())
+    ])
+    .then(([categories, products]) => {
+
+        const container = document.getElementById('product-container');
+        container.innerHTML = "";
+
+        if (categories.length === 0) {
+            container.innerHTML = "<p>No categories available.</p>";
+            return;
+        }
+
+        categories.forEach(category => {
+
+            const categoryBlock = document.createElement('div');
+            categoryBlock.classList.add('category-block');
+
+            const title = document.createElement('h3');
+            title.classList.add('category-title');
+            title.textContent = category.name;
+
+            const grid = document.createElement('div');
+            grid.classList.add('products-grid');
+
+            const filteredProducts = products.filter(
+                product => product.category.id === category.id
+            );
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = "<p>No products in this category.</p>";
+            } else {
+                filteredProducts.forEach(product => {
+
+                    const card = document.createElement('div');
+                    card.classList.add('product-card');
+
+                    card.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <p><strong>Product Code:</strong> ${product.product_id}</p>
+                        <p class="price">${product.price} ${product.currency}</p>
+                    `;
+
+                    grid.appendChild(card);
+                });
+            }
+
+            categoryBlock.appendChild(title);
+            categoryBlock.appendChild(grid);
+            container.appendChild(categoryBlock);
+
+        });
+
+    })
+    .catch(error => {
+        document.getElementById('product-container').innerHTML =
+            "<p style='color:red;text-align:center;'>Could not load products.</p>";
+        console.error(error);
+    });
+
+});
+
+</script>
+
+</body>
+</html>

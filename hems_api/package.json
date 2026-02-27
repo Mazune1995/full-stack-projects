@@ -1,0 +1,30 @@
+{
+  "name": "hems_api",
+  "version": "1.0.0",
+  "description": "HEMS backend API",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "mongoose": "^7.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mazune1995/medtainer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mazune1995/medtainer/issues"
+  },
+  "homepage": "https://github.com/Mazune1995/medtainer#readme"
+}
