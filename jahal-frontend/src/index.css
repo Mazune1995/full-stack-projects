@@ -1,0 +1,7 @@
+/* index.css - Global Reset */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #cbd1d8;
+}
