@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Product, Vendor, Currency, Inventory
+from .models import *
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -29,4 +29,28 @@ class ProductSerializer(serializers.ModelSerializer):
 class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory
+        fields = '__all__'
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = '__all__'
+
+
+class InvoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invoice
+        fields = '__all__'
+
+
+class InvoiceItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InvoiceItem
+        fields = '__all__'
+
+
+class ReceiptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Receipt
         fields = '__all__'

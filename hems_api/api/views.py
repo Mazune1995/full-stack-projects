@@ -1,12 +1,6 @@
 from rest_framework import viewsets
-from .models import Category, Product, Vendor, Currency, Inventory
-from .serializers import (
-    CategorySerializer,
-    ProductSerializer,
-    VendorSerializer,
-    CurrencySerializer,
-    InventorySerializer
-)
+from .models import *
+from .serializers import *
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -32,3 +26,23 @@ class ProductViewSet(viewsets.ModelViewSet):
 class InventoryViewSet(viewsets.ModelViewSet):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
+
+
+class CustomerViewSet(viewsets.ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+
+
+class InvoiceViewSet(viewsets.ModelViewSet):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+
+
+class InvoiceItemViewSet(viewsets.ModelViewSet):
+    queryset = InvoiceItem.objects.all()
+    serializer_class = InvoiceItemSerializer
+
+
+class ReceiptViewSet(viewsets.ModelViewSet):
+    queryset = Receipt.objects.all()
+    serializer_class = ReceiptSerializer
