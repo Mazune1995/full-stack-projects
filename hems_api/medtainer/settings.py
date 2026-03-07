@@ -112,10 +112,17 @@ if os.environ.get("RENDER") == "True":
     }
 else:
     # Local dev
-    DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-    
 
 STATIC_URL = 'static/'
 
